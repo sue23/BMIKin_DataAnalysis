@@ -8,7 +8,7 @@ path = pwd;
 d.name = {'LoadandGetData','TBodySpace','DistinCalib','DistinTask','PlotReach','PerformanceIndicator',...
     'CursorVariability','Null_CursorVariability','BodyVariability','PlotStick','PostureAnalysis','ComputeDeltaPos',...
     'MarkerIndicators','pckinect'};
-d.scriptpath = [pwd,filesep,'MatlabCode',filesep,'Kinect_Script',filesep];
+d.scriptpath = [pwd,filesep,'MatlabCode',filesep];
 % Handle response
 switch choice
     case 'Controlli'
