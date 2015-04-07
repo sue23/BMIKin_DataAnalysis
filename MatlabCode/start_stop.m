@@ -24,7 +24,7 @@ mt.speed=speed;
 ttol = (tol)*pkspeed;
 c=diff(speed);
 if c(1)>0 & c(2)<0
-    ind=max(find(c>0,2,'first')); % così non considero il pesso iniziale che parte dall'alto e scende
+    ind=max(find(c>0,2,'first')); % cos? non considero il pesso iniziale che parte dall'alto e scende
 else
     ind=find(c>0,1,'first');
 end
@@ -46,8 +46,8 @@ end
 %     keyboard
 % end
 
-% la fine del movimento corrisponde a cosa? all'istante in cui appare la
-% home(target centrale) meno un secondo. Perch? nel task di reaching ?
+% la fine del movimento corrisponde  all'istante in cui appare la
+% home(target centrale) meno un secondo. Perche' nel task di reaching e'
 % richiesto di restare un secondo fermo nel target
 indfine = find(abs(time-(time(end)-0.5))<0.5);
 sottoth=find(speed(indfine)<ttol);
@@ -71,8 +71,9 @@ end
 % plot(x(sind),speed(sind),'k^','markerfacecolor',[1 0 0]);
 % line([indfine(1) indfine(1)],[0 speed(pki)])
 % line([indfine(end) indfine(end)],[0 speed(pki)])
-% il tempo di reazione ? definito come il primo campione (quando lo stato ?
-% 1 appare il target (periferico)
+
+% il tempo di reazione e' definito come il primo campione (quando lo stato
+% e' 1 appare il target (periferico)
 mt.rtime = time(rind)-time(1);
 mt.dur = time(sind)-time(rind);
 mt.time = time;

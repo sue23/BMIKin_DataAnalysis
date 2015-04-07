@@ -46,4 +46,4 @@ Rec=ind;
 plotReachPerformance(Reach,soggetti,'real_reach')
 close all
 plotReachPerformance(Rec,soggetti,'rec_reach')
-    close all
+close all

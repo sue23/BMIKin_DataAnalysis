@@ -1,4 +1,4 @@
-function [ cursor ] = ReconstructNullSpace( sensors_vec ,A,Rotation,Gain,Offset)
+function [ cursor ] = ReconstructNullSpace( sensors_vec ,A)
 %ReconstructFromBody ricostruisce i movimenti del cursore dai segnali del
 %body e plottiamo le coordinate ricostruite su quelle originali
 %   INPUT:
@@ -11,7 +11,6 @@ function [ cursor ] = ReconstructNullSpace( sensors_vec ,A,Rotation,Gain,Offset)
 
 %ricostruisco e plotto movimento in 2-D
 
-rotMat = [cosd(Rotation) -sind(Rotation); sind(Rotation) cosd(Rotation)];
 
 %MOVIMENTO DEL CURSORE RICOSTRUITO
 

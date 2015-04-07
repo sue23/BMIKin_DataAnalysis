@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sect4>
+<?dbhtml filename="BMI-363.html"?>
+<title>"Reshape" (Reshape) </title><table colsep="1" frame="all" pgwide="1" rowsep="1"><title>"Reshape" Parameters</title><tgroup align="left" cols="2"><colspec colname="1" colnum="1" colwidth="9000*"/><colspec colname="2" colnum="2" colwidth="30000*"/><thead><row><entry>Parameter</entry><entry>Value</entry></row></thead><tbody><row><entry>Output dimensionality</entry><entry>Row vector (2-D)</entry></row><row><entry>Output dimensions</entry><entry>[1,1]</entry></row></tbody></tgroup></table></sect4>

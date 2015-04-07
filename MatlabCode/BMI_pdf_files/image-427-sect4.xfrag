@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sect4>
+<?dbhtml filename="BMI-420.html"?>
+<title>"TrackingStatus 
+(1: Tracking, 0: Not Tracking)1" (Display) </title><table colsep="1" frame="all" pgwide="1" rowsep="1"><title>"TrackingStatus 
+(1: Tracking, 0: Not Tracking)1" Parameters</title><tgroup align="left" cols="2"><colspec colname="1" colnum="1" colwidth="9000*"/><colspec colname="2" colnum="2" colwidth="30000*"/><thead><row><entry>Parameter</entry><entry>Value</entry></row></thead><tbody><row><entry>Format</entry><entry>short</entry></row><row><entry>Decimation</entry><entry>1</entry></row><row><entry>Floating display</entry><entry>off</entry></row></tbody></tgroup></table></sect4>

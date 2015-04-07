@@ -43,34 +43,57 @@ soggetti={listsubj.name};
 if ~isempty(find([listsubj.isdir]==0))
     soggetti=soggetti(2:end);
 end
-var = load(['mats',filesep,'varcur']);
-varcuro_x=var.ind.andate_x(:,:,1);
-varcuro_x(varcuro_x==0)=nan;
-varcuro_y=var.ind.andate_y(:,:,1);
-varcuro_y(varcuro_y==0)=nan;
-varcurv_x=var.ind.andate_x(:,:,2);
-varcurv_x(varcurv_x==0)=nan;
-varcurv_y=var.ind.andate_y(:,:,2);
-varcurv_y(varcurv_y==0)=nan;
-varcurc_x=var.ind.andate_x(:,:,3);
-varcurc_x(varcurc_x==0)=nan;
-varcurc_y=var.ind.andate_y(:,:,3);
-varcurc_y(varcurc_y==0)=nan;
-last=[1 7;2 10;3 6]
-keyboard
-horz = varcuro_y./ varcuro_x;
-vert = varcurv_x./ varcurv_y;
+Rec_cursor = load(['mats',filesep,'Rec_cursor']);
+outlier = load(['mats',filesep,'outliers']);
+% inizializzo matrici 
+varcuro_x=ones(10,3).*nan;
+varcuro_y=ones(10,3).*nan;
 
-h=figure;
+varcurv_x=ones(10,3).*nan;
+varcurv_y=ones(10,3).*nan;
+
+varcurc_x=ones(10,3).*nan;
+varcurc_y=ones(10,3).*nan;
+
+
 for subj=1:3%length(soggetti)
     %similmente a prima dentro ad ogni cartella del soggetto c'? una cartella
     %per ogni sessione
     listsess = dir([datadir,filesep, soggetti{subj}]);
     listsess = listsess(3:length(listsess),:);%le prime due directory non servono
     maxsess=length({listsess.name});
-    ho(subj,:) = horz([1 maxsess],subj)';
-    ve(subj,:) = vert([1 maxsess],subj)';
-   
+    for g=1:3
+        for sess=1:maxsess
+            try
+            var = getvar(Rec_cursor.ind{subj,sess,g},outlier.ind{subj,sess,g});
+            catch
+                keyboard
+            end
+            % perch? dividevo per gain????
+            %                 varcur.andate_x(sess,subj,g) = vargo_curs_o(1,1)/Gain;
+            %                 varcur.andate_y(sess,subj,g) = vargo_curs_o(2,1)/Gain;
+            %                 varcur.allmov_x(sess,subj,g) = varcurs_o(1,1)/Gain;
+            %                 varcur.allmov_y(sess,subj,g) = varcurs_o(2,1)/Gain;
+            if g==1
+                varcuro_x(sess,subj)=var.andate_x;
+                varcuro_y(sess,subj)=var.andate_y;
+            elseif g==2
+                varcurv_x(sess,subj)=var.andate_x;
+                varcurv_y(sess,subj)=var.andate_y;
+            else
+                varcurc_x(sess,subj)=var.andate_x;
+                varcurc_y(sess,subj)=var.andate_y;
+            end
+        end %sess
+        
+    end %g
+
+    horz = varcuro_y./ varcuro_x;
+    vert = varcurv_x./ varcurv_y;
+    
+    
+    
+    
     
     
     if maxsess>10
@@ -78,12 +101,12 @@ for subj=1:3%length(soggetti)
         keyboard
     end
     
+    
+    
     if training
+        h=figure;
         [threshold{subj}]=importThresholds(soggetti{subj});
-        %     for sess=1:maxsess
-        %
-        %
-        %     end %of sess
+        
         
         rows_x =find(diff(threshold{subj}(:,1))~=0);
         rows_y =find(diff(threshold{subj}(:,2))~=0);
@@ -200,6 +223,8 @@ for subj=1:3%length(soggetti)
         xlabel('Sessions')
         box off
     else
+        ho(subj,:) = horz([1 maxsess],subj)';
+        ve(subj,:) = vert([1 maxsess],subj)';
         first = min(find(~isnan(varcuro_x(:,subj))));
         last = max(find(~isnan(varcuro_x(:,subj))));
         h1=figure;
@@ -230,7 +255,7 @@ for subj=1:3%length(soggetti)
         box off
         
         
-%% CROSS REACHING
+        %% CROSS REACHING
         first = min(find(~isnan(varcurc_x(:,subj))));
         last = max(find(~isnan(varcurc_x(:,subj))));
         h3=figure;
@@ -253,20 +278,20 @@ for subj=1:3%length(soggetti)
     close(h2)
     close(h3)
 end %end subj
- figure(h)
-    subplot(2,1,1)
-    bar(ho);
-    set(gca,'XTick',[1 2 3],'XTickLabel',{'Sabject 1','Subject 2','Subject 3'});
-    legend('First session','Last session')
-    legend boxoff
-    box off
-    title('Horizontal')
-    subplot(2,1,2)
-    bar(ve)
-    set(gca,'XTick',[1 2 3],'XTickLabel',{'Sabject 1','Subject 2','Subject 3'});
-    legend('First session','Last session')
-    legend boxoff
-    box off
-    title('Vertical')
+figure
+subplot(2,1,1)
+bar(ho);
+set(gca,'XTick',[1 2 3],'XTickLabel',{'Sabject 1','Subject 2','Subject 3'});
+legend('First session','Last session')
+legend boxoff
+box off
+title('Horizontal')
+subplot(2,1,2)
+bar(ve)
+set(gca,'XTick',[1 2 3],'XTickLabel',{'Sabject 1','Subject 2','Subject 3'});
+legend('First session','Last session')
+legend boxoff
+box off
+title('Vertical')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

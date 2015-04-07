@@ -1,4 +1,4 @@
-function [out]=computereachmetrics(Data,g)
+function [out]=computereachmetrics(Data,g,varargin)
 %computereachmetrics Time_state,CursorXY,Target
 %   Accepts cursor position and time as input and returns the following metrics:
 %   -Euclidean Error @ 1s
@@ -16,6 +16,7 @@ function [out]=computereachmetrics(Data,g)
 %       5       7
 %           6
 %
+
 sz=[1 1 1024 768];
 initial=[sz(3)/2; sz(4)/2];
 dist = ceil(sz(4)/2)*0.8;
@@ -33,12 +34,15 @@ switch g
     case 4
         Target=Targets';
 end
-for trial = 1:length(Data.start)
-    
-        Time{trial}=Data.reachcompletedata(Data.start(trial):Data.stop(trial),1);
+for trial = 1:length(Data.reachcompletedata)
+       
+        if length(varargin)==1
+            Data.reachcompletedata{trial}(:,2:3) = varargin{1}{trial}';
+        end
+        Time{trial}=Data.reachcompletedata{trial}(:,1);
         Time{trial} = Time{trial}-Time{trial}(1); %Make the first time point t=0
         
-        CursorXY{trial}=Data.reachcompletedata(Data.start(trial):Data.stop(trial),2:3);
+        CursorXY{trial}=Data.reachcompletedata{trial}(:,2:3);
         % calcolo della distanza finale
         
         StLineDist(trial) =sqrt(sum(diff(CursorXY{trial}([1 end],:)).^2));% norm(CursorXY(end,:)-CursorXY(1,:));
