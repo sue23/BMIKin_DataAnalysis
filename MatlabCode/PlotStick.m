@@ -102,11 +102,6 @@ for subj=1:size(A.ind,1)
                         plot3(hipx(t,2),hipz(t,2),hipy(t,2),'ob')
                         plot3(hipx(t,3),hipz(t,3),hipy(t,3),'og')
                         
-                        line([0 0 0; Q(1,:)],[0 0 0; Q(2,:)],[0 0 0; Q(3,:)],'col','k')
-                        text(Q(1,1),Q(2,1),Q(3,1),'X')
-                        text(Q(1,2),Q(2,2),Q(3,2),'Y')
-                        text(Q(1,3),Q(2,3),Q(3,3),'Z')
-                        keyboard
                         xlabel('x')
                         ylabel('z')
                         zlabel('y')
