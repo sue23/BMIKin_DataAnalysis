@@ -101,6 +101,12 @@ for subj=1:size(A.ind,1)
                         hold on
                         plot3(hipx(t,2),hipz(t,2),hipy(t,2),'ob')
                         plot3(hipx(t,3),hipz(t,3),hipy(t,3),'og')
+                        d=[hipx(1,:);hipy(2,:);hipz(3,:)]';
+                        o=(mean(Q));
+                        line([o(1) o(1) o(1); Q(1,:)],[o(3) o(3) o(3); Q(3,:)],[o(2) o(2) o(2); Q(2,:)],'col','g')
+                        text(Q(1,1),Q(1,2),Q(1,3),'X')
+                        text(Q(2,1),Q(2,2),Q(2,3),'Z')
+                        text(Q(3,1),Q(3,2),Q(3,3),'Y')
                         
                         xlabel('x')
                         ylabel('z')
